@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Dense';
+  src: url("/fonts/Dense-Regular.otf") format("opentype"); }
+body {
+  font-size: calc(22px + (30 - 22) * (100vw - 400px) / (1440 - 400));
+  font-family: 'Dense', sans-serif; }
+  body a {
+    min-width: 40px; }
+
+/*# sourceMappingURL=index.css.map */

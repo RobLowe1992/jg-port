@@ -1,0 +1,21 @@
+
+.jason {
+  left: 10vw;
+  top: 130px;
+  background: -webkit-linear-gradient(0deg,#3949AB, #F9A825);
+}
+
+.ganz {
+  right: 5vw;
+  transform: rotate(90deg);
+  top: 400px;
+  background: -webkit-linear-gradient(180deg, #3949AB, #F9A825);
+}
+
+.full-name {
+  letter-spacing: 2vh;
+  position: absolute;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: calc(32px + (100 - 32) * (100vw - 400px) / (1440 - 400));
+}

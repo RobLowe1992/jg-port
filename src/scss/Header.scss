@@ -1,0 +1,44 @@
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #3949AB;
+  text-align: center;
+
+  .navigation, .social-icons {
+
+    ul {
+      list-style-type: none;
+
+      li {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        display: inline-flex;
+        margin-right: 1em;
+        color: #fff;
+        padding: .25em;
+        text-decoration: none;
+      }
+
+      .nav-links:hover {
+      }
+    }
+  }
+
+  //.social-icons {
+  //
+  //  ul {
+  //    -webkit-padding-start: 0;
+  //    -moz-padding-start: 0;
+  //    -webkit-padding-end: 40px;
+  //    -moz-padding-end: 40px;
+  //    float: right;
+  //  }
+  //}
+}
+
