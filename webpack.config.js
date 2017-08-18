@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const openBrowserPlugin = require('open-browser-webpack-plugin');
 const path = require('path');
 
 const PATHS = {
@@ -35,22 +35,35 @@ const commonConfig = {
             }
         }]
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Jason Ganz Portfolio',
+            template: path.join(PATHS.src, 'index.html')
+
+        }),
+        new openBrowserPlugin({
+            url: `http://${options.host}:${options.port}`
+        })
+    ],
+}
+
+const devServer = {
     devServer: {
         compress: true,
         contentBase: PATHS.public,
         historyApiFallback: true,
         host: options.host,
         inline: true,
+        port: options.port,
         open: true,
         stats: 'errors-only'
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Jason Ganz Portfolio',
-            template: path.join(PATHS.src, 'index.html')
-
-        })
-    ]
+    }
 }
 
-module.exports = () => Object.assign({}, commonConfig);
+module.exports = (env) => {
+    if(env == 'development') {
+        return Object.assign({}, devServer, commonConfig);
+    }
+
+    return Object.assign({}, commonConfig);
+}
