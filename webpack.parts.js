@@ -1,4 +1,5 @@
 const ETP = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack')
 
 exports.devServer = ({host, port, path} = {})=> ({
   devServer: {
@@ -89,6 +90,8 @@ exports.loadSASS = (path) => ({
     }],
   },
 });
+
+exports.purifyCSS = ({ paths }) => (new PurifyCSSPlugin({paths}))
 
 
 

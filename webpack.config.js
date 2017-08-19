@@ -5,6 +5,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const parts = require('./webpack.parts');
 const path = require('path');
 const webpack = require('webpack');
+const glob = require('glob');
 
 const PATHS = {
   public: path.join(__dirname, 'public'),
@@ -48,6 +49,9 @@ const commonConfig = merge([
           },
         },
       }),
+      parts.purifyCSS({
+        paths: glob.sync(`${PATHS.src}/**/*.js`, {nodir: true})
+      })
     ],
   },
   // parts.lintJavaScript({include: PATHS.src}),
