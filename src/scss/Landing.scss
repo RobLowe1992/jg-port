@@ -1,12 +1,14 @@
 .jason {
   left: 10vw;
-  top: 130px;
-  background: -webkit-linear-gradient(0deg, #3949AB, #F9A825); }
+  top: calc(32px + (80 - 32) * (100vh) / (983 - 568));
+  background: -webkit-linear-gradient(0deg, #3949AB, #F9A825);
+
+}
 
 .ganz {
   right: 5vw;
   transform: rotate(90deg);
-  top: 400px;
+  top: 50vh;
   background: -webkit-linear-gradient(180deg, #3949AB, #F9A825); }
 
 .full-name {
