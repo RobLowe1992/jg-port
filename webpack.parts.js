@@ -16,21 +16,6 @@ exports.devServer = ({host, port, path} = {})=> ({
   },
 });
 
-// exports.extractText = () => {
-//     module: {
-//       rules: [
-//         {
-//           test: /\.(scss)$/,
-//           use: new ExtractTextPlugin({
-//             use: ['css-loader','post-css','sass-loader'],
-//             fallback: 'style-loader',
-//           })
-//         }
-//       ]
-//     },
-//     plugins: [ new ExtractTextPlugin('style.css') ]
-// };
-
 // exports.jsHint = () => ({
 //   module: {
 //     rules: [
@@ -90,6 +75,25 @@ exports.loadSASS = (path) => ({
     }],
   },
 });
+
+// exports.lintCSS = ({ include, exclude }) => ({
+//   module: {
+//     rules: [
+//       {
+//         test: /\.css$/,
+//         include,
+//         exclude,
+//         enforce: 'pre',
+//         loader: 'postcss-loader',
+//         options: {
+//           plugins: () => ([
+//             require('stylelint')
+//           ])
+//         }
+//       }
+//     ]
+//   }
+// })
 
 exports.purifyCSS = ({ paths }) => (new PurifyCSSPlugin({paths}))
 

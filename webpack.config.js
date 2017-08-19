@@ -51,11 +51,9 @@ const commonConfig = merge([
       }),
       parts.purifyCSS({
         paths: glob.sync(`${PATHS.src}/**/*.js`, {nodir: true})
-      })
+      }),
     ],
   },
-  // parts.lintJavaScript({include: PATHS.src}),
-  // parts.jsHint(),
   parts.loadSASS(PATHS.styles),
   parts.loadJSX(),
 

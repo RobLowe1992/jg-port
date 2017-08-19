@@ -24,7 +24,8 @@
     "build": "webpack --env production",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint:js": "--cache --fix"
+    "lint:js": "eslint src/container/*.js --cache --fix",
+    "lint:style": "stylelint src/scss/*.scss"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -51,6 +52,7 @@
     "purifycss-webpack": "^0.7.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "stylelint-config-recommended": "^1.0.0",
     "webpack": "^3.5.5",
     "webpack-dashboard": "^0.4.0",
     "webpack-dev-server": "^2.7.1",
