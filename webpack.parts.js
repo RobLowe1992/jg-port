@@ -16,33 +16,9 @@ exports.devServer = ({host, port, path} = {})=> ({
   },
 });
 
-// exports.jsHint = () => ({
-//   module: {
-//     rules: [
-//       {
-//         enforce: 'pre',
-//         test: /\.js$/,
-//         exclude: /node_modules/,
-//         loader: 'jshint-loader'
-//       }
-//     ]
-//   }
-// });
-//
-// exports.lintJavaScript = ({ include }) => ({
-//   module: {
-//     rules: [{
-//       test: /\.js$/,
-//       include,
-//       exclude: /node_modules/,
-//       enforce: 'pre',
-//       loader: 'jshint-loader',
-//       options: {
-//         emitWarning: true,
-//       },
-//     }],
-//   },
-// });
+exports.generateSourceMaps = ({ type }) => ({
+  devtool: type,
+});
 
 exports.loadCSS = () => ({
   module:{
@@ -76,24 +52,6 @@ exports.loadSASS = (path) => ({
   },
 });
 
-// exports.lintCSS = ({ include, exclude }) => ({
-//   module: {
-//     rules: [
-//       {
-//         test: /\.css$/,
-//         include,
-//         exclude,
-//         enforce: 'pre',
-//         loader: 'postcss-loader',
-//         options: {
-//           plugins: () => ([
-//             require('stylelint')
-//           ])
-//         }
-//       }
-//     ]
-//   }
-// })
 
 exports.purifyCSS = ({ paths }) => (new PurifyCSSPlugin({paths}))
 

@@ -55,6 +55,7 @@ const commonConfig = merge([
     ],
   },
   parts.loadSASS(PATHS.styles),
+  parts.generateSourceMaps({ type: 'source-map' }),
   parts.loadJSX(),
 
 
@@ -69,6 +70,12 @@ const developmentConfig = merge([
     port: options.port,
     path: PATHS.public,
   }),
+  {
+    output: {
+      devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+    },
+  },
+  parts.generateSourceMaps({ type: 'cheap-module-eval-source-map' }),
 ]);
 
 module.exports = (env) => {
