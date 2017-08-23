@@ -1,3 +1,4 @@
+/*! cb01e12 */
 @font-face {
   font-family: 'Dense';
   src: url("/fonts/Dense-Regular.otf") format("opentype");
@@ -85,5 +86,24 @@ header .navigation ul .nav-links,header .social-icons ul .nav-links {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: calc(32px + (100 - 32) * (100vw - 400px) / (1440 - 400));
+}
+
+.directory {
+  text-align: -webkit-center;
+}
+
+.directory .grid {
+  position: relative;
+  top: calc(30vw/(1440px - 400px));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+  width: 60vw;
+}
+
+.directory .grid .sections {
+  background-color: #888;
+  width: 100%;
+  height: 200px;
 }
 /*# sourceMappingURL=style.css.map*/

@@ -1,5 +1,15 @@
 const ETP = require('extract-text-webpack-plugin');
-const PurifyCSSPlugin = require('purifycss-webpack')
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const webpack = require('webpack');
+
+exports.attachRevision = () => ({
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: new GitRevisionPlugin().version(),
+    }),
+  ],
+});
 
 exports.devServer = ({host, port, path} = {})=> ({
   devServer: {
@@ -24,7 +34,10 @@ exports.loadCSS = () => ({
   module:{
     loaders: [{
       test: /\.css$/,
-      loader: ['style-loader','css-loader'],
+      loader: ETP.extract({
+        fallback: 'style-loader',
+        use: 'css-loader!postcss-loader',
+      }),
     }],
   },
 });
@@ -43,7 +56,7 @@ exports.loadSASS = (path) => ({
   module: {
     loaders: [{
       test: /\.(css|sass|scss)$/,
-      loader: ETP.extract({
+      use: ETP.extract({
         fallback: 'style-loader',
         use: 'css-loader!postcss-loader!sass-loader',
       }),

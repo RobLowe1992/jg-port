@@ -1,0 +1,18 @@
+.directory {
+    text-align: -webkit-center;
+    .grid {
+        position: relative;
+        top: calc(30vw/(1440px - 400px));
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1em;
+        width: 60vw;
+
+        .sections {
+            background-color: #888;
+            width: 100%;
+            height: 200px;
+        }
+    }
+}
+
