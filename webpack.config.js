@@ -1,12 +1,12 @@
 //Variables for Dev Dependencies
 const ETP = require('extract-text-webpack-plugin');
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const parts = require('./webpack.parts');
 const path = require('path');
 const webpack = require('webpack');
-const glob = require('glob');
 
 //Absolute paths to the Public, SRC, and Styles directories
 const PATHS = {
@@ -24,16 +24,9 @@ const options = {
 //Configuration used for both the Development and Production Environment
 const commonConfig = merge([
   {
-    entry: {
-      index: PATHS.src,
-      vendor: [
-        'react',
-        'react-dom'
-      ]
-    },
     output: {
       path: PATHS.public,
-      filename: '[name].bundle.js',
+      filename: '[name].[chunkhash:8].js',
     },
     //Additional Plugins
     plugins: [
@@ -41,13 +34,21 @@ const commonConfig = merge([
       new HtmlWebpackPlugin({
         title: 'Jason Ganz Portfolio',
         template: path.join(PATHS.src, 'index.html'),
+        minify: {
+          collapseWhitespace: true,
+          removeComments: true,
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+        },
       }),
       //Opens the application on the specified port at runtime
       new OpenBrowserPlugin({
         url: `http://${options.host}:${options.port}`,
       }),
       //Extracts CSS to a seperate file called style.css
-      new ETP('style.css'),
+      new ETP('style.[contenthash:8].css'),
       new webpack.LoaderOptionsPlugin({
         options: {
           eslint: {
@@ -79,12 +80,50 @@ const commonConfig = merge([
 ]);
 //Production environment configuration additions
 const productionConfig = merge([
+  {
+    entry: {
+      index: PATHS.src,
+      vendor: [
+        'react',
+        'react-dom',
+      ],
+    },
+  },{
+    plugins: [
+      new webpack.HashedModuleIdsPlugin(),
+      // parts.manifest(PATHS.src),
+    ],
+  },
+  parts.extractBundles([
+    {
+      name: 'vendor',
+    },{
+      name: 'manifest',
+      minChunks: Infinity,
+    },
+  ]),
+  parts.minifyCSS({
+    options: {
+      discardComments: {
+        removeAll: true,
+      },
+      // Run cssnano in safe mode to avoid
+      // potentially unsafe transformations.
+      safe: true,
+    },
+  }),
+  // parts.minifyJavaScript(),
   parts.attachRevision(),
   //Generates Source Maps for js files
   parts.generateSourceMaps({ type: 'source-map' }),
 ]);
 //Development environment configuration additions
 const developmentConfig = merge([
+  {
+    entry: {
+      index: PATHS.src,
+    },
+  },
   parts.devServer({
     host: options.host,
     port: options.port,

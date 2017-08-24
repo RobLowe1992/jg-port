@@ -11,7 +11,7 @@ class Directory extends Component {
           <div className="sections"></div>
         </div>
       </div>
-    )
+    );
   }
 }
 

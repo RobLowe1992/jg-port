@@ -1,5 +1,9 @@
+const BabiliPlugin = require('babili-webpack-plugin');
+const cssnano = require('cssnano');
 const ETP = require('extract-text-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const webpack = require('webpack');
 
@@ -24,6 +28,12 @@ exports.devServer = ({host, port, path} = {})=> ({
     },
     stats: 'errors-only',
   },
+});
+
+exports.extractBundles = (bundles) => ({
+  plugins: bundles.map((bundle) => (
+    new webpack.optimize.CommonsChunkPlugin(bundle)
+  )),
 });
 
 exports.generateSourceMaps = ({ type }) => ({
@@ -65,8 +75,34 @@ exports.loadSASS = (path) => ({
   },
 });
 
+exports.manifest = (path) => ({
+  plugins: [
+    new ManifestPlugin({
+      fileName: 'manifest.json',
+      seed: {
+        name: 'Manifest'
+      }
+    }),
+  ],
+});
 
-exports.purifyCSS = ({ paths }) => (new PurifyCSSPlugin({paths}))
+exports.minifyCSS = ({ options }) => ({
+  plugins: [
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: options,
+      canPrint: false,
+    }),
+  ],
+});
+
+exports.minifyJavaScript = () => ({
+  plugins: [
+    new BabiliPlugin(),
+  ],
+});
+
+exports.purifyCSS = ({ paths }) => (new PurifyCSSPlugin({paths}));
 
 
 

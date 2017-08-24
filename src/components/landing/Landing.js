@@ -8,7 +8,7 @@ class Landing extends Component {
       <div>
         <h1 className="jason full-name">JASON</h1>
         <h1 className="ganz full-name">GANZ</h1>
-        <Directory />
+        {/*<Directory />*/}
       </div>
     );
   }
